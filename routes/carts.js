@@ -106,12 +106,12 @@ router.post('/:cid/product/:pid', (req, res) => {
                 return res.status(404).json({ error: 'Producto no encontrado' });
             }
 
-            const productInCart = carts[cartIndex].productos.find(p => p.productId === productId);
+            const productInCart = carts[cartIndex].products.find(p => p.productId === productId);
 
             if (productInCart) {
                 productInCart.cantidad += 1;
             } else {
-                carts[cartIndex].productos.push({ productId, cantidad: 1 });
+                carts[cartIndex].products.push({ productId, cantidad: 1 });
             }
 
             fs.writeFile(filePathCarts, JSON.stringify(carts, null, 2), (err) => {
