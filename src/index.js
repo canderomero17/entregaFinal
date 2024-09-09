@@ -4,6 +4,7 @@ import __dirname from './utils.js';
 import * as path from "path"
 import fs from 'fs/promises';
 import productRouter from './router/product.routes.js';
+import { Server } from 'socket.io'
 //import CartRouter from './router/carts.routes.js'
 //import ProductManager from './controllers/ProductManager.js'
 
@@ -11,16 +12,19 @@ import productRouter from './router/product.routes.js';
 const app = express();
 const PORT = 8080;
 //const product = new ProductManager();
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+
+console.log('Serving static files from:', path.join(__dirname, 'public'));
 
 //configuracion handlebars
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.resolve(__dirname + "/views"))
 
-app.use("/", express.static(__dirname + "/public"))
+//app.use("/", express.static(__dirname + "/public"))
 app.use('/api/products', productRouter);
 //app.use('/api/carts', cartsRouter);
 
@@ -39,6 +43,21 @@ app.get("/", async (req, res) => {
     }
 })
 
-app.listen(PORT, () => {
+const httpServer = app.listen(PORT, () => {
     console.log(`Servidor por puerto ${PORT}`)
+})
+
+const socketServer = new Server(httpServer);
+
+socketServer.on('connection', socket => {
+    console.log("nuevo cliente conectado")
+
+    socket.on('mensaje', (data) => {
+        console.log(data)
+    })
+
+    socket.emit('mensaje', 'Bienvenido al servidor de WebSockets');
+
+
+
 })
