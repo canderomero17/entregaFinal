@@ -79,6 +79,7 @@ router.post('/', (req, res) => {
             if (err) {
                 return res.status(500).json({ error: 'Error al guardar el nuevo producto' });
             }
+            socketServer.emit('updateProductList', products);
             res.status(201).json(newProduct);
         });
     });

@@ -1,9 +1,18 @@
-{{#each products}}
-    <h2>NOMBRE: {{{this.nombre}}}</h2>
-    <h2>PRECIO: {{this.precio}}</h2>
-    <h2>ID: {{{this.id}}}</h2>
-{{/each}}
-<h1>HOLA MUNDO </h1>
+<div class="home-container">
+    <div class="product-container">
+        {{#each products}}
+            <div class="product-card home-product-card">
+                <h2>{{this.nombre}}</h2>
+                <p><strong>Descripción:</strong> {{this.description}}</p>
+                <p><strong>Precio:</strong> ${{this.price}}</p>
+                <p><strong>Código:</strong> {{this.code}}</p>
+                <p><strong>Stock:</strong> {{this.stock}}</p>
+                <p><strong>Categoría:</strong> {{this.category}}</p>
+                <p><strong>ID:</strong> {{this.id}}</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

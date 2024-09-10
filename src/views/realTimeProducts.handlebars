@@ -1,0 +1,53 @@
+<h1 class="main-title">Lista de Productos en Tiempo Real</h1>
+
+<div class="realtime-container">
+    <div class="product-container">
+        <ul id="product-list">
+            {{#each products}}
+                <li class="product-item">ID: {{this.id}} | Nombre: {{this.nombre}} | Precio: {{this.precio}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <h2 class="form-title">Agregar un nuevo producto</h2>
+    <form id="productForm" class="product-form realtime-product-form">
+        <input type="text" id="nombre" placeholder="Nombre" class="form-input" required>
+        <input type="text" id="descripcion" placeholder="Descripción" class="form-input" required>
+        <input type="text" id="codigo" placeholder="Código" class="form-input" required>
+        <input type="number" id="precio" placeholder="Precio" class="form-input" required>
+        <input type="number" id="stock" placeholder="Stock" class="form-input" required>
+        <input type="text" id="categoria" placeholder="Categoría" class="form-input" required>
+        <button type="submit" class="submit-button">Agregar Producto</button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('updateProductList', (products) => {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; 
+        products.forEach(product => {
+            const li = document.createElement('li');
+            li.textContent = `ID: ${product.id} | Nombre: ${product.nombre} | Precio: ${product.precio}`;
+            productList.appendChild(li);
+        });
+    });
+
+    const productForm = document.getElementById('productForm');
+    productForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const nombre = document.getElementById('nombre').value;
+        const descripcion = document.getElementById('descripcion').value;
+        const codigo = document.getElementById('codigo').value;
+        const precio = document.getElementById('precio').value;
+        const stock = document.getElementById('stock').value;
+        const categoria = document.getElementById('categoria').value;
+
+        socket.emit('newProduct', {
+            nombre, descripcion, codigo, precio, stock, categoria
+        });
+    });
+</script>
