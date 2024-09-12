@@ -1,6 +1,4 @@
 import express from 'express';
-import fs from 'fs/promises';
-import path from 'path';
 import ProductManager from '../managers/productManager.js';
 
 const router = express.Router();
@@ -9,14 +7,14 @@ const productManager = new ProductManager();
 // LISTAR PRODUCTOS
 router.get('/', (req, res) => {
     const limit = parseInt(req.query.limit);
-    const products = productManager.getProducts(limit); // Llamar al método que ya tiene los productos
+    const products = productManager.getProducts(limit); 
     res.json(products);
 });
 
 // OBTENER PRODUCTO POR ID
 router.get('/:pid', (req, res) => {
     const productId = parseInt(req.params.pid);
-    const product = productManager.getProductById(productId); // Reutilizar el método
+    const product = productManager.getProductById(productId); 
     if (product) {
         res.json(product);
     } else {
@@ -56,7 +54,7 @@ router.delete('/:pid', async (req, res) => {
         return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
-    res.status(204).send(); // El producto fue eliminado con éxito
+    res.status(204).send(); 
 });
 
 export default router;
