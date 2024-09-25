@@ -65,5 +65,18 @@
     "precio": "600",
     "stock": "60",
     "categoria": "Categoria 6"
+  },
+  {
+    "id": 7
+  },
+  {
+    "id": 10,
+    "nombre": "Producto 10",
+    "description": "Descripción del producto 10",
+    "code": "11111100",
+    "precio": 10000,
+    "status": true,
+    "stock": 100,
+    "category": "Categoría 10"
   }
 ]
