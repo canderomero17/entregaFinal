@@ -3,7 +3,6 @@ import { cartModel } from '../models/cart.model.js';
 import { productModel } from '../models/product.model.js';
 
 const router = express.Router();
-//const cartManager = new CartManager()
 
 // OBTENER CARRITO POR ID
 router.get('/:cid', async (req, res) => {
@@ -28,9 +27,17 @@ router.post('/', async (req, res) => {
         if (!productos || !Array.isArray(productos)) {
             return res.status(400).json({ error: 'Los productos deben ser un array' });
         }
-        const nextId = await cartModel.countDocuments() + 1; // Esto puede variar según cómo manejes los IDs
 
-        const newCart = await cartModel({ id: nextId, productos });
+        for (const producto of productos) {
+            if (!producto.productoId || typeof producto.cantidad !== 'number') {
+                return res.status(400).json({
+                    error: 'Cada producto debe tener un productoId válido y una cantidad numérica',
+                });
+            }
+        }
+
+        const newCart = new cartModel({ productos });
+
         await newCart.save()
         res.status(201).json(newCart);
     } catch (error) {
@@ -100,7 +107,6 @@ router.delete('/:cid/products/:pid', async (req, res) => {
             return res.status(404).json({ error: 'Producto no encontrado en el carrito' });
         }
 
-        // Eliminar el producto del carrito
         cart.productos.splice(productIndex, 1);
         await cart.save();
 
@@ -110,6 +116,5 @@ router.delete('/:cid/products/:pid', async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar producto del carrito', message: error.message });
     }
 });
-//VER IDS
 
 export default router;
