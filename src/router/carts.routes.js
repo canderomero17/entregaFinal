@@ -117,4 +117,100 @@ router.delete('/:cid/products/:pid', async (req, res) => {
     }
 });
 
+// ACTUALIZAR CARRITO
+router.put('/:cid', async (req, res) => {
+    const { cid } = req.params;  
+    const { productos } = req.body;
+  
+    try {
+      for (const item of productos) {
+        const producto = await productModel.findById(item.productoId);
+  
+        if (!producto) {
+          return res.status(404).json({ message: `Producto con ID ${item.productoId} no encontrado.` });
+        }
+  
+        if (producto.stock < item.cantidad) {
+          return res.status(400).json({ message: `No hay suficiente stock para el producto ${producto.nombre}.` });
+        }
+      }
+  
+      const carritoActualizado = await cartModel.findByIdAndUpdate(
+        cid,
+        { productos },  
+        { new: true }  
+      );
+  
+      if (!carritoActualizado) {
+        return res.status(404).json({ message: 'Carrito no encontrado.' });
+      }
+  
+      res.status(200).json({ message: 'Carrito actualizado con éxito.', carrito: carritoActualizado });
+    } catch (error) {
+      res.status(500).json({ message: 'Error actualizando el carrito.', error });
+    }
+  });
+
+//ACTUALIZAR CANTIDAD DE PRODUCTOS DE UN CARRITO
+router.put('/:cid/products/:pid', async (req, res) => {
+    const { cid, pid } = req.params;  
+    const { cantidad } = req.body;    
+  
+    if (!cantidad || cantidad <= 0) {
+      return res.status(400).json({ message: 'Cantidad debe ser mayor que 0.' });
+    }
+  
+    try {
+      const producto = await productModel.findById(pid);
+      if (!producto) {
+        return res.status(404).json({ message: 'Producto no encontrado.' });
+      }
+  
+      const carrito = await cartModel.findById(cid);
+      if (!carrito) {
+        return res.status(404).json({ message: 'Carrito no encontrado.' });
+      }
+  
+      const productoEnCarrito = carrito.productos.find(p => p.productoId.toString() === pid);
+      if (!productoEnCarrito) {
+        return res.status(404).json({ message: 'Producto no encontrado en el carrito.' });
+      }
+  
+      if (producto.stock < cantidad) {
+        return res.status(400).json({ message: 'No hay suficiente stock disponible.' });
+      }
+  
+      productoEnCarrito.cantidad = cantidad;
+  
+      await carrito.save();
+  
+      res.status(200).json({ message: 'Cantidad actualizada con éxito.', carrito });
+    } catch (error) {
+      res.status(500).json({ message: 'Error actualizando la cantidad del producto.', error });
+    }
+  });
+
+  //ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
+  router.delete('/deleteProductos/:cid', async (req, res) => {
+    const { cid } = req.params;  
+  
+    try {
+      const carrito = await cartModel.findById(cid);
+  
+      if (!carrito) {
+        return res.status(404).json({ message: 'Carrito no encontrado.' });
+      }
+  
+      carrito.productos = [];
+  
+      await carrito.save();
+  
+      res.status(200).json({ message: 'Carrito vaciado con éxito.' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error al vaciar el carrito.', error });
+    }
+  });
+  
+  
+
 export default router;
