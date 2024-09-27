@@ -1,82 +1,181 @@
 [
   {
-    "id": 1,
     "nombre": "Producto 1",
-    "description": "Descripción del producto 1",
-    "code": "111111",
     "precio": 100,
-    "status": true,
+    "descripcion": "Descripción del producto 1",
     "stock": 10,
-    "category": "Categoría 1",
-    "thumbnails": []
-  },
-  {
-    "id": 2,
-    "nombre": "Producto 2",
-    "description": "Descripción del producto 2",
-    "code": "222222",
-    "precio": 200,
-    "status": true,
-    "stock": 20,
-    "category": "Categoría 2",
+    "codigo": 11,
+    "estado": true,
+    "categoria": "Categoría 1",
     "thumbnails": [
       "../src/img.jpg",
       "../src/img2.jpg"
     ]
   },
   {
-    "id": 3,
+    "nombre": "Producto 2",
+    "precio": 150,
+    "descripcion": "Descripción del producto 2",
+    "stock": 20,
+    "codigo": 22,
+    "estado": true,
+    "categoria": "Categoría 2",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
+  },
+  {
     "nombre": "Producto 3",
-    "description": "Descripción del producto 3",
-    "code": "333333",
-    "precio": 300,
-    "status": true,
+    "precio": 200,
+    "descripcion": "Descripción del producto 3",
     "stock": 30,
-    "category": "Categoría 3",
-    "thumbnails": []
+    "codigo": 33,
+    "estado": true,
+    "categoria": "Categoría 3",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
   },
   {
-    "id": 4,
     "nombre": "Producto 4",
-    "description": "Descripción del producto 4",
-    "code": "444444",
-    "precio": 400,
-    "status": true,
+    "precio": 250,
+    "descripcion": "Descripción del producto 4",
     "stock": 40,
-    "category": "Categoría 4",
-    "thumbnails": []
+    "codigo": 44,
+    "estado": true,
+    "categoria": "Categoría 4",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
   },
   {
-    "id": 5,
     "nombre": "Producto 5",
-    "description": "Descripción del producto 5",
-    "code": "555555",
-    "precio": 500,
-    "status": true,
+    "precio": 300,
+    "descripcion": "Descripción del producto 5",
     "stock": 50,
-    "category": "Categoría 5",
+    "codigo": 55,
+    "estado": true,
+    "categoria": "Categoría 5",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
+  },
+  {
+    "nombre": "Producto 6",
+    "precio": 350,
+    "descripcion": "Descripción del producto 6",
+    "stock": 60,
+    "codigo": 66,
+    "estado": true,
+    "categoria": "Categoría 6",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
+  },
+  {
+    "nombre": "Producto 7",
+    "precio": 400,
+    "descripcion": "Descripción del producto 7",
+    "stock": 70,
+    "codigo": 77,
+    "estado": true,
+    "categoria": "Categoría 7",
+    "thumbnails": [
+       "../src/img.jpg",
+      "../src/img2.jpg"
+    ]
+  },
+  {
+    "nombre": "Producto 8",
+    "precio": 450,
+    "descripcion": "Descripción del producto 8",
+    "stock": 80,
+    "codigo": 88,
+    "estado": true,
+    "categoria": "Categoría 8",
+    "thumbnails": [
+  
+    ]
+  },
+  {
+    "nombre": "Producto 9",
+    "precio": 500,
+    "descripcion": "Descripción del producto 9",
+    "stock": 90,
+    "codigo": 99,
+    "estado": true,
+    "categoria": "Categoría 9",
+    "thumbnails": [
+
+    ]
+  },
+  {
+    "nombre": "Producto 10",
+    "precio": 550,
+    "descripcion": "Descripción del producto 10",
+    "stock": 100,
+    "codigo": 1010,
+    "estado": true,
+    "categoria": "Categoría 10",
+    "thumbnails": [
+  
+    ]
+  },
+  {
+    "nombre": "Producto 11",
+    "precio": 600,
+    "descripcion": "Descripción del producto 11",
+    "stock": 110,
+    "codigo": 1111,
+    "estado": true,
+    "categoria": "Categoría 11",
+    "thumbnails": [
+  
+    ]
+  },
+  {
+    "nombre": "Producto 12",
+    "precio": 650,
+    "descripcion": "Descripción del producto 12",
+    "stock": 120,
+    "codigo": 1212,
+    "estado": true,
+    "categoria": "Categoría 12",
     "thumbnails": []
   },
   {
-    "id": 6,
-    "nombre": "Producto 6",
-    "descripcion": "Producto 6",
-    "codigo": "666666",
-    "precio": "600",
-    "stock": "60",
-    "categoria": "Categoria 6"
+    "nombre": "Producto 13",
+    "precio": 700,
+    "descripcion": "Descripción del producto 13",
+    "stock": 130,
+    "codigo": 1313,
+    "estado": true,
+    "categoria": "Categoría 13",
+    "thumbnails": []
   },
   {
-    "id": 7
+    "nombre": "Producto 14",
+    "precio": 750,
+    "descripcion": "Descripción del producto 14",
+    "stock": 140,
+    "codigo": 1414,
+    "estado": true,
+    "categoria": "Categoría 14",
+    "thumbnails": []
   },
   {
-    "id": 10,
-    "nombre": "Producto 10",
-    "description": "Descripción del producto 10",
-    "code": "11111100",
-    "precio": 10000,
-    "status": true,
-    "stock": 100,
-    "category": "Categoría 10"
+    "nombre": "Producto 15",
+    "precio": 800,
+    "descripcion": "Descripción del producto 15",
+    "stock": 150,
+    "codigo": 1515,
+    "estado": true,
+    "categoria": "Categoría 15",
+    "thumbnails": []
   }
 ]

@@ -1,36 +1,66 @@
 [
   {
-    "id": 1,
     "productos": [
       {
-        "productoId": 1,
+        "productoId": "66f7129be1916c2084e70afe",
         "cantidad": 2
       },
       {
-        "productoId": 2,
-        "cantidad": 1
-      },
-      {
-        "productoId": 5,
-        "cantidad": 2
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "productos": [
-      {
-        "productoId": 3,
+        "productoId": "66f7129be1916c2084e70aff",
         "cantidad": 1
       }
     ]
   },
   {
-    "id": 6,
-    "products": []
+    "productos": [
+      {
+        "productoId": "66f7129be1916c2084e70aff",
+        "cantidad": 3
+      },
+      {
+        "productoId": "66f7129be1916c2084e70b00",
+        "cantidad": 1
+      }
+    ]
   },
   {
-    "id": 7,
-    "products": []
+    "productos": [
+      {
+        "productoId": "66f7129be1916c2084e70afe",
+        "cantidad": 1
+      },
+      {
+        "productoId": "66f7129be1916c2084e70aff",
+        "cantidad": 5
+      },
+      {
+        "productoId": "66f7129be1916c2084e70b00",
+        "cantidad": 2
+      }
+    ]
+  },
+  {
+    "productos": [
+      {
+        "productoId": "66f7129be1916c2084e70afa",
+        "cantidad": 4
+      }
+    ]
+  },
+  {
+    "productos": [
+      {
+        "productoId": "66f7129be1916c2084e70af9",
+        "cantidad": 2
+      },
+      {
+        "productoId": "66f7129be1916c2084e70af8",
+        "cantidad": 3
+      },
+      {
+        "productoId": "66f7129be1916c2084e70af7",
+        "cantidad": 1
+      }
+    ]
   }
 ]

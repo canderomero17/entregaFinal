@@ -1,18 +1,53 @@
 <div class="home-container">
     <div class="product-container">
-        {{#each products}}
+        {{#each products}} 
             <div class="product-card home-product-card">
                 <h2>{{this.nombre}}</h2>
-                <p><strong>Descripción:</strong> {{this.description}}</p>
-                <p><strong>Precio:</strong> ${{this.price}}</p>
+                <p><strong>Descripción:</strong> {{this.descripcion}}</p>
+                <p><strong>Precio:</strong> ${{this.precio}}</p>
                 <p><strong>Código:</strong> {{this.code}}</p>
                 <p><strong>Stock:</strong> {{this.stock}}</p>
-                <p><strong>Categoría:</strong> {{this.category}}</p>
-                <p><strong>ID:</strong> {{this.id}}</p>
+                <p><strong>Categoría:</strong> {{this.categoria}}</p>
+                <p><strong>ID:</strong> {{this._id}}</p>
+
+                <button class="btn btn-success" onclick="agregarAlCarrito('{{this._id}}')">Agregar al carrito</button>
             </div>
         {{/each}}
     </div>
+
+<div class="pagination">
+    {{#if hasPrevPage}}
+        <a href="/?page={{prevPage}}&limit={{limit}}" class="btn btn-secondary">Página anterior</a>
+    {{else}}
+        <button class="btn btn-secondary" disabled>Página anterior</button>
+    {{/if}}
+
+    {{#if hasNextPage}}
+        <a href="/?page={{nextPage}}&limit={{limit}}" class="btn btn-secondary">Página siguiente</a>
+    {{else}}
+        <button class="btn btn-secondary" disabled>Página siguiente</button>
+    {{/if}}
+</div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
+
+<script>
+    function agregarAlCarrito(productId) {
+        fetch(`/api/carts/agregar/${productId}`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Producto agregado al carrito exitosamente');
+            } else {
+                alert('Hubo un problema al agregar el producto al carrito');
+            }
+        })
+        .catch(error => {
+            console.error('Error al agregar el producto al carrito:', error);
+        });
+    }
+</script>
