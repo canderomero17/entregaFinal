@@ -8,60 +8,44 @@ const productManager = new ProductManager();
 // LISTAR PRODUCTOS
 router.get('/', async(req, res) => {
     try {
-        // const { limit = 10, page = 1, sort, query } = req.query;
+        const { limit = 10, page = 1, categoria, disponibilidad, sort } = req.query;
+        let query = {};
 
-        // const limitNumber = parseInt(limit);
-        // const pageNumber = parseInt(page);
+        if (categoria) {
+            query.categoria = categoria;  
+          }
+      
+          if (disponibilidad === 'true') {
+            query.stock = { $gt: 0 }; 
+          } else if (disponibilidad === 'false') {
+            query.stock = { $eq: 0 };  
+          }
+      
+        const options = {
+        limit: parseInt(limit),  
+        page: parseInt(page),    
+        sort: sort ? { precio: sort === 'asc' ? 1 : -1 } : {},  
+        lean: true              
+        };
 
-        // const filter = {};
-        // const sortOptions = {};
+        const result = await productModel.paginate(query, options);
+        const { totalPages, hasPrevPage, hasNextPage, prevPage, nextPage, page: currentPage, docs } = result;
+    
+        const prevLink = hasPrevPage ? `/api/products?page=${prevPage}&limit=${limit}` : null;
+        const nextLink = hasNextPage ? `/api/products?page=${nextPage}&limit=${limit}` : null;
 
-        // if (nombre) {
-        //     filter.nombre = new RegExp(query, 'i'); // Buscar por nombre
-        // }
-        // if (categoria) {
-        //     filter.categoria = category; // Filtrar por categoría
-        // }
-        // if (stock !== undefined) {
-        //     filter.stock = { $gt: 0 }; // Filtrar solo productos disponibles (stock > 0)
-        // }
-
-        // if (sort === 'asc') {
-        //     sortOptions.precio = 1; 
-        // } else if (sort === 'desc') {
-        //     sortOptions.precio = -1; 
-        // }
-        // const products = await productModel.find(filter)
-        //     .sort(sortOptions)
-        //     .limit(limitNumber)
-        //     .skip((pageNumber - 1) * limitNumber); 
-
-        // const totalProducts = await productModel.countDocuments(filter);
-        // const totalPages = Math.ceil(totalProducts / limitNumber);
-
-        // // Determinar si hay páginas anteriores o siguientes
-        // const hasPrevPage = pageNumber > 1;
-        // const hasNextPage = pageNumber < totalPages;
-
-        // // Crear enlaces para las páginas
-        // const prevLink = hasPrevPage ? `/products?limit=${limitNumber}&page=${pageNumber - 1}&sort=${sort}&query=${query || ''}` : null;
-        // const nextLink = hasNextPage ? `/products?limit=${limitNumber}&page=${pageNumber + 1}&sort=${sort}&query=${query || ''}` : null;
-
-        // res.send({
-        //     status: 'success',
-        //     payload: products,
-        //     totalPages,
-        //     prevPage: hasPrevPage ? pageNumber - 1 : null,
-        //     nextPage: hasNextPage ? pageNumber + 1 : null,
-        //     page: pageNumber,
-        //     hasPrevPage,
-        //     hasNextPage,
-        //     prevLink,
-        //     nextLink
-        // });  
-        let products = await productModel.find()
-        res.send({results: 'success', payload: products})
-  
+        res.json({
+        status: 'success',
+        payload: docs,  
+        totalPages,
+        prevPage,
+        nextPage,
+        page: currentPage,
+        hasPrevPage,
+        hasNextPage,
+        prevLink,
+        nextLink
+        });
     } catch (error) {
         console.error("No se pudo obtener productos con mongoose: " + error)
         res.status(500).send({ error: "No se pudo obtener productos con mongoose", message: error})
